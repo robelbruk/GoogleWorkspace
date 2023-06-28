@@ -1,4 +1,5 @@
 // pseudo-code
+
 // Identify necessary scopes that are needed from Directory API documentation
   // Scope for only retrieving users or user aliases. 
 // Define a function to create an alias for a new user based on the model 'firstName.LastName@cmtelematics.com'
