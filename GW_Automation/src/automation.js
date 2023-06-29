@@ -13,13 +13,24 @@
  * @see https://developers.google.com/admin-sdk/directory/reference/rest/v1/users.aliases/insert
  */
 function createAlias() {
-  const userEmail = 'firstName.lastName@cmtelematics.com'; // represents the email address of the user for which the alias will be created
-  let alias = {
-    alias: 'bruk.ross@cmtelematics.com' // example email address for newUser = Bruk Ross
-  };
-  try { // block of code that handles potential errors when calling API
-    alias = AdminDirectory.Users.Aliases.insert(alias, userEmail); // method responsible for creating alias of specified user
-    console.log('Created alias %s for user %s.', alias.alias, userEmail); // success message "Created alias for user .."
+  try { 
+    const userEmail = 'userEmail@example.com' // replace with actual email address
+
+    const user = AdminDirectory.Users.get(userEmail); // retrieve user's information from the API
+
+    const firstName = user.name.givenName; // extract user's first name
+    const lastName = user.name.familyName; // extract user's last name
+
+    const aliasEmail = firstName + '.' + lastName + '@cmtelematics.com'; // generates alias using user's first/last name
+
+    const alias = { // alias object
+      alias: aliasEmail
+    };
+
+    const response = AdminDirectory.Users.Aliases.insert(alias, userEmail); // the API call to create the alias for the user
+
+    console.log('Created alias %s for user %s.', response.alias, userEmail); // success message "Created alias for user .."
+    
   } 
   catch (err) { // Handles errors that arise
   if (err.code === 'API_RATE_LIMIT_EXCEEDED') { // handles rate limit exceeded error (too many calls in specific period of time)
