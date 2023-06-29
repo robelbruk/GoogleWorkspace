@@ -30,7 +30,7 @@ function createAlias() {
     const response = AdminDirectory.Users.Aliases.insert(alias, userEmail); // the API call to create the alias for the user
 
     console.log('Created alias %s for user %s.', response.alias, userEmail); // success message "Created alias for user .."
-    
+
   } 
   catch (err) { // Handles errors that arise
   if (err.code === 'API_RATE_LIMIT_EXCEEDED') { // handles rate limit exceeded error (too many calls in specific period of time)
@@ -43,9 +43,15 @@ function createAlias() {
     console.log('Failed with error %s', err.message);
   }
 }
+sendEmailToManager(aliasEmail, user.manager.email); // calls function to send email
 
 
+}
 
+function sendEmailToManager(aliasEmail, managerEmail) {
+  const subject = 'New Employee Ready for Invitation';
+  const message = 'Your employee has been created in Google, and they are ready to be invited to meetings.\n\n' + 'Alias Email: ' + aliasEmail;
 
+  GmailApp.sendEmail(managerEmail, subject, message); // sends the email to the manager
 
 }
