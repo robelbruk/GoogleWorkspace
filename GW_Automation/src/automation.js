@@ -5,7 +5,7 @@
 // Define a function to create an alias for a new user based on the model 'firstName.LastName@cmtelematics.com'
   // Create new users manually (or use listeners)
 // Define a function to send an email to the user's manager
-// End Script
+// End Script 
 
 
 /**
@@ -23,8 +23,8 @@ function createAlias() {
 
     const aliasEmail = firstName + '.' + lastName + '@cmtelematics.com'; // generates alias using user's first/last name
 
-    const alias = { // alias object
-      alias: aliasEmail
+    const alias = { // alias object; the generated alias based on user's first and last name
+      alias: aliasEmail 
     };
 
     const response = AdminDirectory.Users.Aliases.insert(alias, userEmail); // the API call to create the alias for the user
@@ -42,7 +42,7 @@ function createAlias() {
   else { // handles misc. errors
     console.log('Failed with error %s', err.message);
   }
-}
+} 
 sendEmailToManager(aliasEmail, user.manager.email); // calls function to send email
 
 
